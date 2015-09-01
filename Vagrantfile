@@ -4,7 +4,8 @@
 Vagrant.configure(2) do |config|
 
   # CentOS base image, 40 GB disk storage
-  config.vm.box = "chef/centos-6.6"
+  #config.vm.box = "chef/centos-6.6"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -19,7 +20,7 @@ Vagrant.configure(2) do |config|
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "192.168.33.10"
+  config.vm.network "private_network", ip: "10.0.0.10"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -35,10 +36,10 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "provisioning/", "/var/vagrant/provisioning"
-    #owner: "vagrant",
-    #group: "vagrant",
-    #mount_options: [ "dmode=775,fmode=775" ]
+  config.vm.synced_folder "provisioning/", "/var/vagrant/provisioning",
+    owner: "vagrant",
+    group: "vagrant",
+    mount_options: [ "dmode=775,fmode=775" ]
 
   # Disable default shared folder
   config.vm.synced_folder ".", "/vagrant", disabled: true
@@ -54,13 +55,13 @@ Vagrant.configure(2) do |config|
 
   # Shell provisioning
   config.vm.provision "shell", inline: <<-SHELL
-    sudo su
-    yum -y update
+    #sudo su
+    #yum -y update
 
-    yum -y install dos2unix
-    dos2unix /var/vagrant/provisioning/*
+    #yum -y install dos2unix
+    #dos2unix /var/vagrant/provisioning/*
 
-    cd /var/vagrant/provisioning
+    #cd /var/vagrant/provisioning
 
     exit
   SHELL

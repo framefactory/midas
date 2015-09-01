@@ -55,14 +55,19 @@ Vagrant.configure(2) do |config|
 
   # Shell provisioning
   config.vm.provision "shell", inline: <<-SHELL
-    #sudo su
-    #yum -y update
+    sudo su
+    apt-get update
+    apt-get upgrade -y
+    apt-get install -y dos2unix expect
 
-    #yum -y install dos2unix
-    #dos2unix /var/vagrant/provisioning/*
+    dos2unix /var/vagrant/provisioning/*
+    cd /var/vagrant/provisioning
 
-    #cd /var/vagrant/provisioning
+    sh ./install-web-tools.sh
+    sh ./install-dev-tools.sh
+    sh ./install-samba.sh
 
+    apt-get autoremove -y
     exit
   SHELL
 end

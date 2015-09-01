@@ -12,7 +12,7 @@ mysqladmin -u root password vagrant
 apt-get install -y curl
 curl -sL https://deb.nodesource.com/setup_0.12 | bash -
 apt-get install -y nodejs
-npm install -g requirejs nodemon forever
+npm install -g requirejs nodemon forever bower grunt-cli
 
 # SASS, Compass
 apt-get install -y ruby ruby-dev

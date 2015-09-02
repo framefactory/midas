@@ -9,14 +9,14 @@ apt-get install -y samba
 # write/replace the samba configuration file
 pushd /etc/samba
 cat > smb.conf <<EOL
-workgroup = flowbox
-server string = Flowbox Ubuntu Server
+workgroup = lightbox
+server string = Lightbox Ubuntu Server
 
 security = user
 map to guest = bad user
 
-[Flowbox]
-    comment = Flowbox File System
+[lightbox]
+    comment = Lightbox File System
     path = /
     browseable = yes
     guest ok = no

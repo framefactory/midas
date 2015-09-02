@@ -16,7 +16,7 @@ Vagrant.configure(2) do |config|
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
   
-  config.vm.hostname = "flowbox"
+  config.vm.hostname = "lightbox"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -46,7 +46,7 @@ Vagrant.configure(2) do |config|
 
   # Provider-specific configuration
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Flowbox"
+    vb.name = "Lightbox"
     vb.gui = false
     vb.memory = "4096"
     vb.cpus = 4
@@ -63,9 +63,9 @@ Vagrant.configure(2) do |config|
     dos2unix /var/vagrant/provisioning/*
     cd /var/vagrant/provisioning
 
-    sh ./install-web-tools.sh
-    sh ./install-dev-tools.sh
-    sh ./install-samba.sh
+    #sh ./install-dev-tools.sh
+    #sh ./install-web-tools.sh
+    #sh ./install-samba.sh
 
     apt-get autoremove -y
     exit

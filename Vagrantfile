@@ -3,8 +3,7 @@
 
 Vagrant.configure(2) do |config|
 
-  # CentOS base image, 40 GB disk storage
-  #config.vm.box = "chef/centos-6.6"
+  # Ubuntu base image, 40 GB disk storage
   config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
@@ -63,8 +62,8 @@ Vagrant.configure(2) do |config|
     dos2unix /var/vagrant/provisioning/*
     cd /var/vagrant/provisioning
 
-    #sh ./install-dev-tools.sh
-    #sh ./install-web-tools.sh
+    sh ./install-dev-tools.sh
+    sh ./install-web-tools.sh
     #sh ./install-samba.sh
 
     apt-get autoremove -y

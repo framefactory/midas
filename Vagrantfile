@@ -28,8 +28,9 @@ Vagrant.configure(2) do |config|
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2022, id: "ssh"
-  config.vm.network "forwarded_port", guest: 80, host: 8080, id: "http"
+  config.vm.network "forwarded_port", guest: 80, host: 8088, id: "http"
   config.vm.network "forwarded_port", guest: 8000, host: 8000, id: "node"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, id: "test"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -65,7 +66,7 @@ Vagrant.configure(2) do |config|
     sh ./install-dev-tools.sh
     sh ./install-web-tools.sh
     #sh ./install-samba.sh
-
+    sn ./install-hooks.sh
     apt-get autoremove -y
     exit
   SHELL

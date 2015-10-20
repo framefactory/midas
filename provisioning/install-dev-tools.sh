@@ -13,3 +13,4 @@ apt-get install -y clang-3.6 lldb-3.6
 
 # various tools
 apt-get install -y cmake
+apt-get install -y qt5-default qttools5-dev-tools

@@ -8,7 +8,7 @@ yum update -y
 
 # development tools
 yum groupinstall -y "Development Tools"
-yum install -y wget vim ntp
+yum install -y wget vim ntp dos2unix
 
 systemctl enable ntpd.service
 systemctl stop ntpd.service

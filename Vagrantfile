@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
 
   # CentOS 7 base image, 40 GB disk storage
-  config.vm.box = "lightbase.vmware.box"
+  config.vm.box = "lightbase-vmware.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -41,6 +41,11 @@ Vagrant.configure(2) do |config|
     group: "vagrant",
     mount_options: [ "dmode=775,fmode=775" ]
 
+  config.vm.synced_folder "projects/", "/projects",
+    owner: "vagrant",
+    group: "vagrant",
+    mount_options: [ "dmode=775,fmode=775" ]
+
   # Disable default shared folder
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
@@ -61,10 +66,13 @@ Vagrant.configure(2) do |config|
     dos2unix /var/vagrant/provisioning/*
     cd /var/vagrant/provisioning
 
-    #sh ./install-dev-tools.sh
-    #sh ./install-web-tools.sh
-    #sh ./install-samba.sh
-    #sn ./install-hooks.sh
+    #sh ./10-centos-git-compile.sh
+    #sh ./20-centos-qt.sh
+    #sh ./30-centos-nodejs.sh
+    #sh ./40-centos-webtools.sh
+    #sh ./41-centos-lamp.sh
+    #sh ./50-centos-docker.sh
+    #sn ./90-centos-aliases.sh
     exit
   SHELL
 end

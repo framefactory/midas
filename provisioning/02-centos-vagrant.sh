@@ -24,3 +24,9 @@ systemctl start sshd.service
 cd /
 mkdir -p projects
 chown vagrant:vagrant projects
+
+# disable requiretty in sudoers
+sed -i 's/^\(Defaults.*requiretty\)/#\1/' /etc/sudoers
+
+# allow vagrant to use sudo without password
+echo "vagrant ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers

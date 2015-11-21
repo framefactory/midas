@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # SASS, Compass
-yum install -y ruby ruby-devel
+apt-get install -y ruby ruby-dev
 gem install sass
 gem install compass
-

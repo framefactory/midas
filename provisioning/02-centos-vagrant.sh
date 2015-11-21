@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Create user
-useradd vagrant
+# Create user vagrant
+groupadd -f vagrant
+useradd vagrant -d /home/vagrant -g vagrant -G users
 
 # install openssh
 yum install -y openssh-server openssh-clients

@@ -14,7 +14,7 @@ yum install -y wget vim ntp dos2unix
 yum install -y net-tools 
 
 # install kernel development modules, required by vmware-tools and vb-guest-additions
-sudo yum install "kernel-devel-uname-r == $(uname -r)"
+sudo yum install -y "kernel-devel-uname-r == $(uname -r)"
 
 # time service
 systemctl enable ntpd.service

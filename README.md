@@ -32,10 +32,13 @@ Vagrant development box based on Centos 7 or Ubuntu.
 
 ##### Provisioning
 
-* yum install -y git
-* mkdir -p /var/vagrant/setup && cd /var/vagrant/setup
-* git clone https://github.com/framelab/lightbox .
-
+*  yum install -y git
+*  mkdir -p /var/vagrant/setup && cd /var/vagrant/setup
+*  git clone https://github.com/framelab/lightbox .
+*  ./01-centos-base.sh
+*  ./02-centos-vagrant.sh
+*  Insert VMware Tools CD
+* ./03-centos-vmware.sh
 
 #### Guest OS: Ubuntu
 

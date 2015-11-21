@@ -3,13 +3,13 @@
 
 Vagrant.configure(2) do |config|
 
-  # Ubuntu base image, 40 GB disk storage
-  config.vm.box = "ubuntu/trusty64"
+  # CentOS 7 base image, 40 GB disk storage
+  config.vm.box = "lightbase.vmware.box"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  config.vm.box_check_update = true
+  config.vm.box_check_update = false
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -45,29 +45,26 @@ Vagrant.configure(2) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
   # Provider-specific configuration
-  config.vm.provider "virtualbox" do |vb|
+  config.vm.provider "vmware-fusion" do |vb|
     vb.name = "Lightbox"
     vb.gui = false
-    vb.memory = "4096"
-    vb.cpus = 4
-    vb.customize [ "modifyvm", :id, "--vram", "32" ]
+    vb.memory = "2048"
+    vb.cpus = 2
   end
 
   # Shell provisioning
   config.vm.provision "shell", inline: <<-SHELL
     sudo su
-    apt-get update
-    apt-get upgrade -y
-    apt-get install -y dos2unix expect
+    yum update -y
+    yum install -y dos2unix expect
 
     dos2unix /var/vagrant/provisioning/*
     cd /var/vagrant/provisioning
 
-    sh ./install-dev-tools.sh
-    sh ./install-web-tools.sh
+    #sh ./install-dev-tools.sh
+    #sh ./install-web-tools.sh
     #sh ./install-samba.sh
-    sn ./install-hooks.sh
-    apt-get autoremove -y
+    #sn ./install-hooks.sh
     exit
   SHELL
 end

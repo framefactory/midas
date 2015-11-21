@@ -14,16 +14,9 @@ service apache2 restart
 
 #apt-get install -y phpmyadmin
 
-# Node.js
-curl -sL https://deb.nodesource.com/setup_0.12 | bash -
-apt-get install -y nodejs
-npm install -g requirejs nodemon forever bower grunt-cli http-server
 
 # SASS, Compass
 apt-get install -y ruby ruby-dev
 gem install sass
 gem install compass
 
-# Docker
-curl -sSL https://get.docker.com/ | sh
-usermod -aG docker vagrant

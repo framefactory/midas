@@ -1,9 +1,6 @@
 #!/bin/bash
 
-# create projects folder
-cd /
-mkdir -p projects
-chown vagrant:vagrant projects
+
 
 cd ~
 cat > .bash_aliases << EOF

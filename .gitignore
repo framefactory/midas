@@ -1,4 +1,5 @@
 .vagrant/
 projects/
+*.sublime-workspace
 *.box
 .DS_Store

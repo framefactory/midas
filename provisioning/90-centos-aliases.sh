@@ -1,6 +1,6 @@
-#!/bash/bin
+#!/bin/bash
 
-cat >> home/vagrant/.bashrc << EOF
+cat >> /home/vagrant/.bashrc << EOF
 # user aliases
 alias ll='ls -la'
 alias editalias='vim ~/.bashrc'

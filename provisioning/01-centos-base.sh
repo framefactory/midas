@@ -10,6 +10,13 @@ yum update -y
 yum groupinstall -y "Development Tools"
 yum install -y wget vim ntp dos2unix
 
+# installs ifconfig, required by vmware-tools
+yum install -y net-tools 
+
+# install kernel development modules, required by vmware-tools and vb-guest-additions
+sudo yum install "kernel-devel-uname-r == $(uname -r)"
+
+# time service
 systemctl enable ntpd.service
 systemctl stop ntpd.service
 ntpdate time.nist.gov

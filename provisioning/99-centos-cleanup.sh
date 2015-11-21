@@ -11,3 +11,6 @@ history -c
 # zero out drive
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
+
+# remove setup folder
+rm -rf /var/vagrant/setup

@@ -15,7 +15,7 @@ Vagrant development box based on Centos 7 or Ubuntu.
 *  Customize settings
 *  Save as 'Lightbase'
 *  Processors and memory: 2 cores, 2048 MB RAM
-*  Hard Disk: 40 GB size, no split, no pre-allocation
+*  Hard Disk: 40 GB size, no split-files, no pre-allocation
 *  Connect CD/DVD Drive and insert CentOS 7 Minimal Disk Image
 
 ##### Install Guest OS
@@ -33,7 +33,7 @@ Vagrant development box based on Centos 7 or Ubuntu.
 ##### Provisioning
 
 * yum install -y git
-* mkdir -p /tmp/provisioning && cd /tmp/provisioning
+* mkdir -p /var/vagrant/setup && cd /var/vagrant/setup
 * git clone https://github.com/framelab/lightbox .
 
 

@@ -1,12 +1,19 @@
 #!/bin/bash
 
 # VMware tools
-#yum install -y open-vm-tools
-#echo "answer AUTO_KMODS_ENABLED yes" | sudo tee -a /etc/vmware-tools/locations
+
+# prerequisites
+# 1. Insert VMware tools CD
+
 
 mkdir -p /media/cdrom
 mount /dev/sr0 /media/cdrom
-cd /media/cdrom
+pushd /media/cdrom
+mkdir -p /tmp/vmware-tools
+cp VMwareTools-* /tmp/vmware-tools
+cd /tmp/vmware-tools
+tar xzf VMwareTools-*
+cd vmware-tools-distrib
+./vmware-install.pl -d -f
+popd
 
-# manual steps
-# 1. Insert VMware tools CD

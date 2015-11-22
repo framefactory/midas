@@ -18,7 +18,7 @@ tar xzf VMwareTools-*
 cd vmware-tools-distrib
 ./vmware-install.pl -d -f
 popd
-#rm -rf ${VMWARE_INSTALL_DIR}
+rm -f ${VMWARE_INSTALL_DIR}/*.tar.gz
 
 # enable automatic kernel updates, enter
 # vmware-config-tools.pl

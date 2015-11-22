@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # VMware tools
+yum install -y open-vm-tools
 
 # prerequisites
 # 1. Insert VMware tools CD
 
-VMWARE_INSTALL_DIR=/tmp/vmware-tools-setup
+VMWARE_INSTALL_DIR=/var/vmware-tools
 
 mkdir -p /media/cdrom
 mount /dev/sr0 /media/cdrom
@@ -17,4 +18,7 @@ tar xzf VMwareTools-*
 cd vmware-tools-distrib
 ./vmware-install.pl -d -f
 popd
-rm -rf ${VMWARE_INSTALL_DIR}
+#rm -rf ${VMWARE_INSTALL_DIR}
+
+# enable automatic kernel updates, enter
+# vmware-config-tools.pl

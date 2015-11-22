@@ -1,8 +1,12 @@
 #!/bin/bash
 
+# set host name
+hostnamectl set-hostname lightbox
+
 # Create user vagrant
 groupadd -f vagrant
 useradd vagrant -d /home/vagrant -g vagrant -G users
+passwd -d vagrant
 
 # install openssh
 yum install -y openssh-server openssh-clients

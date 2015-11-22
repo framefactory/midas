@@ -1,5 +1,11 @@
-.vagrant/
-projects/
+# FILES
+.DS_Store
 *.sublime-workspace
 *.box
-.DS_Store
+
+# FOLDERS
+lib/
+.idea/
+.vagrant/
+node_modules/
+projects/

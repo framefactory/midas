@@ -8,6 +8,12 @@ groupadd -f vagrant
 useradd vagrant -d /home/vagrant -g vagrant -G users
 passwd -d vagrant
 
+# disable requiretty in sudoers
+sed -i 's/^\(Defaults.*requiretty\)/#\1/' /etc/sudoers
+
+# allow vagrant to use sudo without password
+echo "vagrant ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # install openssh
 yum install -y openssh-server openssh-clients
  
@@ -29,8 +35,8 @@ cd /
 mkdir -p projects
 chown vagrant:vagrant projects
 
-# disable requiretty in sudoers
-sed -i 's/^\(Defaults.*requiretty\)/#\1/' /etc/sudoers
+mkdir -p sites
+chown vagrant:vagrant sites
 
-# allow vagrant to use sudo without password
-echo "vagrant ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+mkdir -p data
+chown vagrant:vagrant data

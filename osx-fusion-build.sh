@@ -22,3 +22,6 @@ EOF
 tar cvzf lightbase-vmware.box ./*
 popd
 mv -f ${VMWARE_MACHINE_DIR}/lightbase-vmware.box .
+
+vagrant box remove lightbase-vmware.box
+vagrant box add lightbase-vmware.box --name lightbase-vmware.box --provider vmware_fusion

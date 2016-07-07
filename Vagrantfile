@@ -1,6 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Shell provisioning during first-time setup
+$provisioning = <<-PROVISIONING
+  sudo yum update -y
+PROVISIONING
+
 Vagrant.configure(2) do |config|
 
   # CentOS 7 base image, 40 GB disk storage
@@ -11,15 +16,12 @@ Vagrant.configure(2) do |config|
   # `vagrant box outdated`. This is not recommended.
   config.vm.box_check_update = false
 
-  # Create a forwarded port mapping which allows access to a specific port
-  # within the machine from a port on the host machine. In the example below,
-  # accessing "localhost:8080" will access port 80 on the guest machine.
-  
+  # Virtual machine hostname
   config.vm.hostname = "lightbox"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
-  config.vm.network "private_network", ip: "10.0.0.10"
+  config.vm.network "private_network", type: "dhcp"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -28,26 +30,32 @@ Vagrant.configure(2) do |config|
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2022, id: "ssh"
-  config.vm.network "forwarded_port", guest: 80, host: 8088, id: "http"
-  config.vm.network "forwarded_port", guest: 8000, host: 8000, id: "node"
-  config.vm.network "forwarded_port", guest: 8080, host: 8080, id: "test"
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, id: "static"
+  config.vm.network "forwarded_port", guest: 8000, host: 8000, id: "http"
+  config.vm.network "forwarded_port", guest: 8001, host: 8001, id: "https"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "provisioning/", "/var/vagrant/provisioning",
+  config.vm.synced_folder "projects/", "/var/projects",
     owner: "vagrant",
     group: "vagrant",
-    mount_options: [ "dmode=775,fmode=775" ]
-
-  config.vm.synced_folder "projects/", "/projects",
+    mount_options: [ "dmode=777,fmode=777" ]
+    
+  config.vm.synced_folder "sites/", "/var/sites",
+    owner: "vagrant",
+    group: "apache",
+    mount_options: [ "dmode=777,fmode=777" ]
+    
+  config.vm.synced_folder "data/", "/var/data",
     owner: "vagrant",
     group: "vagrant",
-    mount_options: [ "dmode=775,fmode=775" ]
+    mount_options: [ "dmode=777,fmode=777" ]    
 
   # Disable default shared folder
-  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder ".", "/vagrant",
+    disabled: true
 
   # Provider-specific configuration
   config.vm.provider "vmware-fusion" do |vb|
@@ -58,21 +66,12 @@ Vagrant.configure(2) do |config|
   end
 
   # Shell provisioning
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo su
-    yum update -y
-    yum install -y dos2unix expect
-
-    dos2unix /var/vagrant/provisioning/*
-    cd /var/vagrant/provisioning
-
-    #sh ./10-centos-git-compile.sh
-    #sh ./20-centos-qt.sh
-    #sh ./30-centos-nodejs.sh
-    #sh ./40-centos-webtools.sh
-    #sh ./41-centos-lamp.sh
-    #sh ./50-centos-docker.sh
-    #sn ./90-centos-aliases.sh
-    exit
-  SHELL
+  config.vm.provision "shell",
+    inline: $provisioning,
+    privileged: false
+    
+  # Docker provisioning
+  config.vm.provision "docker" do |docker|
+    #docker.pull_images "image:version"
+  end  
 end

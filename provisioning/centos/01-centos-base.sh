@@ -8,7 +8,7 @@ yum update -y
 
 # development tools
 yum groupinstall -y "Development Tools"
-yum install -y wget vim ntp dos2unix
+yum install -y wget vim ntp dos2unix bzip2
 
 # installs ifconfig, required by vmware-tools
 yum install -y net-tools 

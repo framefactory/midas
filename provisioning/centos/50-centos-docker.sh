@@ -10,4 +10,3 @@ systemctl start docker.service
 yum install -y python-pip
 pip install --upgrade pip
 pip install -U docker-compose
-

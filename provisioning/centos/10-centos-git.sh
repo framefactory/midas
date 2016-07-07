@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # git fetch and compile
-GIT_VERSION=2.6.2
+GIT_VERSION=2.8.1
 
 yum install -y gettext-devel openssl-devel perl-CPAN perl-devel zlib-devel curl-devel
 yum remove -y git

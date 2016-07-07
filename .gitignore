@@ -9,3 +9,6 @@ lib/
 .vagrant/
 node_modules/
 projects/
+sites/
+data/
+projects.old/

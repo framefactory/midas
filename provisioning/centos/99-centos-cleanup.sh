@@ -11,8 +11,5 @@ rm -f /var/log/wtmp /var/log/btmp
 dd if=/dev/zero of=/EMPTY bs=1M
 rm -f /EMPTY
 
-# remove setup folder
-rm -rf /var/vagrant/setup
-
 # clear history
 history -c

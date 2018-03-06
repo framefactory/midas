@@ -1,14 +1,13 @@
 #!/bin/bash
 
 # install samba
-apt-get install -y samba
+apt-get update && apt-get install -y samba
 
 # add "vagrant" user with "vagrant" password
 (echo "vagrant" && echo "vagrant") | smbpasswd -a vagrant
 
-# write/replace the samba configuration file
-pushd /etc/samba
-cat > smb.conf <<EOL
+# replace the samba configuration file
+cat > /etc/samba/smb.conf <<EOL
 workgroup = lightbox
 server string = Lightbox Ubuntu Server
 
@@ -24,7 +23,6 @@ map to guest = bad user
     create mask = 0755
     directory mask = 0755
 EOL
-popd
 
 # restart services
 service smbd restart

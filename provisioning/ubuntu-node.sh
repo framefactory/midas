@@ -13,16 +13,16 @@ export NVM_DIR="/usr/local/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # add to vagrant's .bashrc
-cat > /home/vagrant/.bashrc <<EOL
+cat >> /home/vagrant/.bashrc <<EOL
 export NVM_DIR="/usr/local/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 EOL
 
 # install node.js
-nvm install 8.9.4
-nvm use 8.9.4
-nvm alias default 8.9.4
+nvm install 8.11.1
+nvm use 8.11.1
+nvm alias default 8.11.1
 
 # Check node versions
 node --version

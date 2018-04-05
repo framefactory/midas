@@ -2,13 +2,11 @@
 .DS_Store
 *.sublime-workspace
 *.box
+*.log
 
 # FOLDERS
-lib/
 .idea/
 .vagrant/
 node_modules/
-projects/
-sites/
-data/
-projects.old/
+keys/
+shared/

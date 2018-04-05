@@ -8,14 +8,14 @@ apt-get update && apt-get install -y samba
 
 # replace the samba configuration file
 cat > /etc/samba/smb.conf <<EOL
-workgroup = lightbox
-server string = Lightbox Ubuntu Server
+workgroup = midas
+server string = Midas Ubuntu Server
 
 security = user
 map to guest = bad user
 
 [lightbox]
-    comment = Lightbox File System
+    comment = Midas File System
     path = /
     browseable = yes
     guest ok = no

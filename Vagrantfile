@@ -11,42 +11,34 @@
 
 # Shell provisioning during first-time setup
 $provisioning = <<-PROVISIONING
+  apt-get update && apt-get upgrade -y
   apt-get install -y dos2unix
-  dos2unix /var/provisioning/**/*
+  dos2unix /var/provisioning/*.sh
   pushd /var/provisioning
-  sh ubuntu-base.sh
-  sh ubuntu-samba.sh
-  sh ubuntu-node.sh
-  #sh ubuntu-caddy.sh
-  sh ubuntu-aliases.sh
+  bash ubuntu-base.sh
+  bash ubuntu-samba.sh
+  bash ubuntu-node.sh
+  bash ubuntu-caddy.sh
+  bash ubuntu-aliases.sh
 PROVISIONING
 
 Vagrant.configure("2") do |config|
 
   # Base Vagrant box
-  config.vm.box = "bento/ubuntu-17.10"
+  config.vm.box = "ubuntu/xenial64"
 
   # Disable automatic box update checking (not recommended).
   # config.vm.box_check_update = false
 
   # Virtual machine hostname
-  config.vm.hostname = "lightbox"
+  config.vm.hostname = "midas"
 
-  # Create a private network, which allows host-only access to the machine
-  # using a specific IP.
-  config.vm.network "private_network", ip: "10.0.0.10"
+  # Create a private or public network.
+  config.vm.network "public_network", ip: "192.168.1.200"
   # config.vm.network "private_network", type: "dhcp"
-
-  # Create a public network, which generally matched to bridged network.
-  # Bridged networks make the machine appear as another physical device on
-  # your network.
-  # config.vm.network "public_network"
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, id: "http"
-  # example: only allow access via 127.0.0.1 to disable public access
-  # config.vm.network "forwarded_port", guest: 80, host: 8080, host_ip: "127.0.0.1"
 
   # Shared folders: host path to actual folder, guest path to mount point.
   config.vm.synced_folder "shared/", "/var/shared",

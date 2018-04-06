@@ -10,7 +10,7 @@
 # (c) 2018 Frame Factory GmbH
 
 # Shell provisioning during first-time setup
-$provisioning = <<-PROVISIONING
+$provisioning_root = <<-PROVISIONING
   apt-get update && apt-get upgrade -y
   apt-get install -y dos2unix
   dos2unix /var/provisioning/*.sh
@@ -18,8 +18,14 @@ $provisioning = <<-PROVISIONING
   bash ubuntu-base.sh
   bash ubuntu-samba.sh
   bash ubuntu-node.sh
+  popd
+PROVISIONING
+
+$provisioning_vagrant = <<-PROVISIONING
+  pushd /var/provisioning
   bash ubuntu-caddy.sh
   bash ubuntu-aliases.sh
+  popd
 PROVISIONING
 
 Vagrant.configure("2") do |config|
@@ -34,8 +40,8 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "midas"
 
   # Create a private or public network.
-  config.vm.network "public_network", ip: "192.168.1.200"
-  # config.vm.network "private_network", type: "dhcp"
+  config.vm.network "private_network", ip: "10.0.0.10"
+  # config.vm.network "public_network", type: "dhcp"
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
@@ -57,23 +63,28 @@ Vagrant.configure("2") do |config|
   
   # Provider-specific configuration
   config.vm.provider "vmware-fusion" do |vb|
-    vb.name = "Lightbox"
+    vb.name = "Midas"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Lightbox"
+    vb.name = "Midas"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2
   end
 
-  # Shell provisioning
+  # Shell provisioning (as root)
   config.vm.provision "shell",
-    inline: $provisioning,
+    inline: $provisioning_root,
     privileged: true
+
+  # Shell provisioning (as vagrant)
+  config.vm.provision "shell",
+    inline: $provisioning_vagrant,
+    privileged: false
 
   # Docker provisioning
   config.vm.provision "docker" do |docker|

@@ -1,8 +1,9 @@
 #!/bin/bash
 
 # Add bash aliases
-cd /home/vagrant
+cd ~
 cat >> .bash_aliases << EOF
+# Some user defined aliases
 alias ll='ls -la'
 alias ..='cd ..'
 

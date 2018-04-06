@@ -1,9 +1,7 @@
 #!/bin/bash
 # INSTALLS GO, THEN CONFIGURES AND BUILDS CADDY SERVER
 
-HOMEDIR=/home/vagrant
-
-apt-get install -y curl git mercurial make binutils bison gcc build-essential
+sudo apt-get install -y curl git mercurial make binutils bison gcc build-essential
 
 bash < <(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
 source ~/.gvm/scripts/gvm
@@ -36,18 +34,50 @@ cat > imports.txt <<EOL
     _ "github.com/hacdias/caddy-hugo"                  // integration with hugo static cms
 EOL
 
-sed '/plugged in (imported)/r imports.txt' run.go
+sed -i.bak '/plugged in (imported)/r imports.txt' run.go
 
 echo "building caddy..."
 cd $GOPATH/src/github.com/mholt/caddy/caddy
 go run build.go -goos=linux -goarch=amd64
 
-echo "done."
-mv caddy $GOPATH/bin
+echo "installing caddy..."
+sudo mv caddy /usr/local/bin
 
-cat >> $HOMEDIR/.bashrc <<EOL
-export PATH=$PATH:~/go/bin
-# fix file descriptor limit (caddy will complain)
+# create sample Caddyfile
+cat ~/Caddyfile <<EOL
+:80 {
+    root /var/www
+}
+EOL
+sudo mkdir /etc/caddy
+sudo mv ~/Caddyfile /etc/caddy/
+
+# create sample webpage
+sudo mkdir /var/www
+sudo chmod vagrant:vagrant /var/www
+cat /var/www/index.html <<EOL
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Midas Server</title>
+</head>
+<body>
+  <h1>Midas Server</h1>
+  <p>Hello World!</p>
+</body>
+</html>
+EOL
+
+# install caddy as service
+echo "caddy as service..."
+sudo caddy -service install -conf /etc/caddy/Caddyfile
+sudo caddy -service start
+
+echo "done."
+
+cat >> ~/.bashrc <<EOL
+# fix file descriptor limit (caddy will complain otherwise)
 ulimit -n 8192
 EOL
 

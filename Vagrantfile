@@ -23,15 +23,16 @@ PROVISIONING
 
 $provisioning_vagrant = <<-PROVISIONING
   pushd /var/provisioning
+  bash ubuntu-docker.sh
   bash ubuntu-caddy.sh
-  bash ubuntu-aliases.sh
+  bash ubuntu-customize.sh
   popd
 PROVISIONING
 
 Vagrant.configure("2") do |config|
 
   # Base Vagrant box
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "config.vm.box = "bento/ubuntu-16.04""
 
   # Disable automatic box update checking (not recommended).
   # config.vm.box_check_update = false
@@ -63,14 +64,14 @@ Vagrant.configure("2") do |config|
   
   # Provider-specific configuration
   config.vm.provider "vmware-fusion" do |vb|
-    vb.name = "Midas"
+    vb.name = "Midas2"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Midas"
+    vb.name = "Midas2"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2
@@ -81,13 +82,13 @@ Vagrant.configure("2") do |config|
     inline: $provisioning_root,
     privileged: true
 
-  # Shell provisioning (as vagrant)
-  config.vm.provision "shell",
-    inline: $provisioning_vagrant,
-    privileged: false
-
   # Docker provisioning
   config.vm.provision "docker" do |docker|
     #docker.pull_images "image:version"
   end 
+
+  # Shell provisioning (as vagrant)
+  config.vm.provision "shell",
+    inline: $provisioning_vagrant,
+    privileged: false
 end

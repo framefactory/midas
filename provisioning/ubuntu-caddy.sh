@@ -49,7 +49,7 @@ cat ~/Caddyfile <<EOL
     root /var/www
 }
 EOL
-sudo mkdir /etc/caddy
+sudo mkdir -p /etc/caddy
 sudo mv ~/Caddyfile /etc/caddy/
 
 # create sample webpage
@@ -82,5 +82,3 @@ ulimit -n 8192
 EOL
 
 exit
-
-

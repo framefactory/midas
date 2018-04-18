@@ -3,7 +3,7 @@
 
 # --------------------------
 # Vagrant Configuration File
-# Ubuntu 17.10
+# Ubuntu 18.04
 # --------------------------
 #
 # Ralph Wiedemeier <ralph@framefactory.ch>
@@ -11,7 +11,7 @@
 
 # Shell provisioning during first-time setup
 $provisioning_root = <<-PROVISIONING
-  apt-get update && apt-get upgrade -y
+  apt-get update
   apt-get install -y dos2unix
   dos2unix /var/provisioning/*.sh
   pushd /var/provisioning
@@ -32,7 +32,7 @@ PROVISIONING
 Vagrant.configure("2") do |config|
 
   # Base Vagrant box
-  config.vm.box = "config.vm.box = "bento/ubuntu-16.04""
+  config.vm.box = "bento/ubuntu-18.04"
 
   # Disable automatic box update checking (not recommended).
   # config.vm.box_check_update = false
@@ -46,12 +46,14 @@ Vagrant.configure("2") do |config|
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
+  config.vm.network "forwarded_port", guest: 8000, host: 8000
+  config.vm.network "forwarded_port", guest: 8001, host: 8001
 
   # Shared folders: host path to actual folder, guest path to mount point.
-  config.vm.synced_folder "shared/", "/var/shared",
-    owner: "vagrant",
-    group: "vagrant",
-    mount_options: [ "dmode=777,fmode=777" ]
+  #config.vm.synced_folder "shared/", "/var/shared",
+  #  owner: "vagrant",
+  #  group: "vagrant",
+  #  mount_options: [ "dmode=777,fmode=777" ]
     
   config.vm.synced_folder "provisioning/", "/var/provisioning",
     owner: "vagrant",

@@ -67,14 +67,14 @@ Vagrant.configure("2") do |config|
   
   # Provider-specific configuration
   config.vm.provider "vmware-fusion" do |vb|
-    vb.name = "Midas2"
+    vb.name = "Midas"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2
   end
 
   config.vm.provider "virtualbox" do |vb|
-    vb.name = "Midas2"
+    vb.name = "Midas"
     vb.gui = false
     vb.memory = "2048"
     vb.cpus = 2

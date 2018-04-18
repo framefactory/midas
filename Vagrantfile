@@ -32,7 +32,8 @@ PROVISIONING
 Vagrant.configure("2") do |config|
 
   # Base Vagrant box
-  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box = "ubuntu/xenial64"
+  config.disksize.size = "32GB"
 
   # Disable automatic box update checking (not recommended).
   # config.vm.box_check_update = false

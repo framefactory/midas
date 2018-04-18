@@ -26,7 +26,6 @@ echo "go get -u github.com/hacdias/caddy-hugo"
 go get -u github.com/hacdias/caddy-hugo
 
 cd $GOPATH/src/github.com/mholt/caddy/caddy/caddymain
-touch imports.txt
 cat > imports.txt <<EOL
     _ "github.com/bruhs/caddy-service"                 // run as service
     _ "github.com/pyed/ipfilter"                       // IP/geo-based rules
@@ -45,8 +44,7 @@ echo "installing caddy..."
 sudo mv caddy /usr/local/bin
 
 # create sample Caddyfile
-touch ~/Caddyfile
-cat ~/Caddyfile <<EOL
+cat > ~/Caddyfile <<EOL
 :80 {
     root /var/www
 }
@@ -57,8 +55,7 @@ sudo mv ~/Caddyfile /etc/caddy/
 # create sample webpage
 sudo mkdir -p /var/www
 sudo chown vagrant:vagrant /var/www
-touch /var/www/index.html
-cat /var/www/index.html <<EOL
+cat > /var/www/index.html <<EOL
 <!DOCTYPE html>
 <html>
 <head>

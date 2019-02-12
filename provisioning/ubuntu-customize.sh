@@ -11,8 +11,6 @@ alias ll='ls -la'
 alias ..='cd ..'
 
 alias cdp='cd ~/projects'
-alias cdf='cd source/shared/flow'
-alias pdf='pushd source/shared/flow'
 
 alias editalias='vim ~/.bash_aliases'
 alias sourcealias='source ~/.bashrc'

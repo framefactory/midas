@@ -9,7 +9,7 @@ apt-get update
 apt-get install -y git
 
 # install clang
-apt-get install -y clang-3.6 lldb-3.6
+apt-get install -y clang-6.0 lldb-6.0
 
 # various tools
 apt-get install -y cmake

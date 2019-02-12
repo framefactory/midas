@@ -20,9 +20,9 @@ export NVM_DIR="/usr/local/nvm"
 EOL
 
 # install node.js
-nvm install 8.11.1
-nvm use 8.11.1
-nvm alias default 8.11.1
+nvm install 10.15.1
+nvm use 10.15.1
+nvm alias default 10.15.1
 
 # Check node versions
 node --version

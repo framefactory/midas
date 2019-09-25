@@ -32,7 +32,7 @@ PROVISIONING
 Vagrant.configure("2") do |config|
 
   # Base Vagrant box
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "generic/ubuntu1804"
   config.disksize.size = "32GB"
 
   # Disable automatic box update checking (not recommended).
@@ -46,9 +46,9 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network", type: "dhcp"
 
   # Forwarded ports
-  config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
-  config.vm.network "forwarded_port", guest: 8000, host: 8000
-  config.vm.network "forwarded_port", guest: 8001, host: 8001
+  #config.vm.network "forwarded_port", guest: 22, host: 22, id: "ssh"
+  #config.vm.network "forwarded_port", guest: 8000, host: 8000
+  #config.vm.network "forwarded_port", guest: 8001, host: 8001
 
   # Shared folders: host path to actual folder, guest path to mount point.
   #config.vm.synced_folder "shared/", "/var/shared",
@@ -79,6 +79,12 @@ Vagrant.configure("2") do |config|
     vb.memory = "2048"
     vb.cpus = 2
   end
+
+  config.vm.provider "hyperv" do |hv|
+    hv.vmname = "Midas"
+    hv.gui = false
+    hv.memory = "2048"
+    hv.cpus = 2
 
   # Shell provisioning (as root)
   config.vm.provision "shell",

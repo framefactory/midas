@@ -14,7 +14,7 @@ server string = Midas Ubuntu Server
 security = user
 map to guest = bad user
 
-[midas]
+[root]
     comment = Midas File System
     path = /
     browseable = yes

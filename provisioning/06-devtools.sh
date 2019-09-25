@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # install build essentials
-apt-get install -y build-essential
+sudo apt install -y build-essential
 
 # install git
-#apt-add-repository ppa:git-core/ppa -y
-#apt-get update
-#apt-get install -y git
+sudo apt-add-repository ppa:git-core/ppa -y
+sudo apt update
+sudo apt install -y git
 
 # install clang
-apt-get install -y clang-6.0 lldb-6.0
+sudo apt install -y clang-8 lldb-8
 
 # various tools
-apt-get install -y cmake
-apt-get install -y qt5-default qttools5-dev-tools
+sudo apt install -y cmake
+sudo apt install -y qt5-default qttools5-dev-tools

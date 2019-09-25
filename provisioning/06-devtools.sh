@@ -4,9 +4,9 @@
 apt-get install -y build-essential
 
 # install git
-apt-add-repository ppa:git-core/ppa -y
-apt-get update
-apt-get install -y git
+#apt-add-repository ppa:git-core/ppa -y
+#apt-get update
+#apt-get install -y git
 
 # install clang
 apt-get install -y clang-6.0 lldb-6.0

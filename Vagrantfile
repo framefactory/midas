@@ -7,29 +7,26 @@
 # --------------------------
 #
 # Ralph Wiedemeier <ralph@framefactory.ch>
-# (c) 2018 Frame Factory GmbH
+# (c) 2019 Frame Factory GmbH
 
 # Shell provisioning during first-time setup
 
-#bash ubuntu-base.sh
-#bash ubuntu-samba.sh
-#bash ubuntu-ssh.sh
-#bash ubuntu-node.sh
-
 $provisioning_root = <<-PROVISIONING
   apt-get update
+  apt-get upgrade -y
   apt-get install -y dos2unix
   dos2unix /var/provisioning/*.sh
   pushd /var/provisioning
+    bash 01-samba.sh
+    bash 02-docker.sh
+    bash 03-node.sh
+    bash 04-caddy.sh
   popd
 PROVISIONING
 
-#bash ubuntu-docker.sh
-#bash ubuntu-caddy.sh
-#bash ubuntu-customize.sh
-
-$provisioning_vagrant = <<-PROVISIONING
+$provisioning_user = <<-PROVISIONING
   pushd /var/provisioning
+    bash 05-customize.sh
   popd
 PROVISIONING
 
@@ -39,9 +36,6 @@ Vagrant.configure("2") do |config|
   config.vm.box = "generic/ubuntu1804"
   config.disksize.size = "16GB"
 
-  # Disable automatic box update checking (not recommended).
-  # config.vm.box_check_update = false
-
   # Virtual machine hostname
   config.vm.hostname = "midas"
 
@@ -50,7 +44,6 @@ Vagrant.configure("2") do |config|
   # config.vm.network "public_network", type: "dhcp"
 
   # Forwarded ports
-  #config.vm.network "forwarded_port", guest: 22, host: 22, id: "ssh"
   #config.vm.network "forwarded_port", guest: 8000, host: 8000
   #config.vm.network "forwarded_port", guest: 8001, host: 8001
 
@@ -65,19 +58,19 @@ Vagrant.configure("2") do |config|
     disabled: true
   
   # Provider-specific configuration
-  config.vm.provider "vmware-fusion" do |vb|
-    vb.name = "Midas"
-    vb.gui = false
-    vb.memory = "2048"
-    vb.cpus = 2
-  end
+  # config.vm.provider "vmware-fusion" do |vb|
+  #   vb.name = "Midas"
+  #   vb.gui = false
+  #   vb.memory = "2048"
+  #   vb.cpus = 2
+  # end
 
-  config.vm.provider "virtualbox" do |vb|
-    vb.name = "Midas"
-    vb.gui = false
-    vb.memory = "2048"
-    vb.cpus = 2
-  end
+  # config.vm.provider "virtualbox" do |vb|
+  #   vb.name = "Midas"
+  #   vb.gui = false
+  #   vb.memory = "2048"
+  #   vb.cpus = 2
+  # end
 
   config.vm.provider "hyperv" do |hv|
     hv.vmname = "Midas"
@@ -97,8 +90,8 @@ Vagrant.configure("2") do |config|
     #docker.pull_images "image:version"
   end 
 
-  # Shell provisioning (as vagrant)
+  # Shell provisioning (as user vagrant)
   config.vm.provision "shell",
-    inline: $provisioning_vagrant,
+    inline: $provisioning_user,
     privileged: false
 end

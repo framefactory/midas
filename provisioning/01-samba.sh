@@ -1,14 +1,14 @@
 #!/bin/bash
 
 # install samba
-sudo apt install -y samba
+apt-get install -y samba
 
 # add "vagrant" user with "vagrant" password
-sudo -- sh -c '(echo "vagrant" && echo "vagrant") | smbpasswd -a vagrant'
+(echo "vagrant" && echo "vagrant") | smbpasswd -a vagrant
 
 # replace the samba configuration file
-sudo -- sh -c 'cat > /etc/samba/smb.conf <<EOL
-workgroup = Frame Factory
+cat > /etc/samba/smb.conf <<EOL
+workgroup = Midas
 server string = Midas Ubuntu Server
 
 security = user
@@ -23,8 +23,8 @@ unix password sync = yes
     read only = no
     create mask = 0755
     directory mask = 0755
-EOL'
+EOL
 
 # restart services
-sudo service smbd restart
-sudo service nmbd restart
+service smbd restart
+service nmbd restart

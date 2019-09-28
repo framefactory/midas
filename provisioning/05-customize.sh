@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Add project folder
-mkdir -p /home/vagrant/projects
+mkdir -p ~/projects
 
 # Add bash aliases
 cd ~

@@ -19,13 +19,13 @@ $provisioning_root = <<-PROVISIONING
   pushd /var/provisioning
     bash 01-samba.sh
     bash 02-docker.sh
-    bash 03-node.sh
     bash 04-caddy.sh
   popd
 PROVISIONING
 
 $provisioning_user = <<-PROVISIONING
   pushd /var/provisioning
+    bash 03-node.sh
     bash 05-customize.sh
   popd
 PROVISIONING

@@ -1,2 +1,2 @@
 vagrant plugin install vagrant-disksize
-vagrant up --provider=virtualbox
+vagrant up --provider virtualbox

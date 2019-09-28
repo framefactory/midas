@@ -1,2 +1,2 @@
 vagrant plugin install vagrant-disksize
-vagrant up --provider=hyperv
+vagrant up --provider hyperv

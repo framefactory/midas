@@ -19,13 +19,13 @@ $provisioning_root = <<-PROVISIONING
   pushd /var/provisioning
     bash 01-samba.sh
     bash 02-docker.sh
-    bash 04-caddy.sh
+    bash 03-caddy.sh
   popd
 PROVISIONING
 
 $provisioning_user = <<-PROVISIONING
   pushd /var/provisioning
-    bash 03-node.sh
+    bash 04-node.sh
     bash 05-customize.sh
   popd
 PROVISIONING
@@ -45,9 +45,11 @@ Vagrant.configure("2") do |config|
 
   # Forwarded ports
   config.vm.network "forwarded_port", guest: 22, host: 2222, id: "ssh"
-  config.vm.network "forwarded_port", guest: 8001, host: 8001
   config.vm.network "forwarded_port", guest: 9000, host: 9000
   config.vm.network "forwarded_port", guest: 9001, host: 9001
+  config.vm.network "forwarded_port", guest: 9002, host: 9002
+  config.vm.network "forwarded_port", guest: 9003, host: 9003
+  config.vm.network "forwarded_port", guest: 9004, host: 9004
 
   # Shared folders: host path to actual folder, guest path to mount point.
   config.vm.synced_folder "provisioning/", "/var/provisioning",

@@ -32,6 +32,9 @@ PROVISIONING
 
 Vagrant.configure("2") do |config|
 
+  # required plugins
+  config.vagrant.plugins = "vagrant-disksize"
+
   # Base Vagrant box
   config.vm.box = "ubuntu/bionic64"
   config.disksize.size = "32GB"
@@ -40,7 +43,7 @@ Vagrant.configure("2") do |config|
   config.vm.hostname = "midas"
 
   # Create a private or public network.
-  config.vm.network "private_network", ip: "10.0.0.10"
+  config.vm.network "private_network", ip: "11.0.0.11"
   # config.vm.network "public_network", type: "dhcp"
 
   # Forwarded ports
@@ -65,14 +68,14 @@ Vagrant.configure("2") do |config|
   config.vm.provider "vmware-fusion" do |vb|
     vb.name = "Midas"
     vb.gui = false
-    vb.memory = "2048"
+    vb.memory = "4096"
     vb.cpus = 2
   end
 
   config.vm.provider "virtualbox" do |vb|
     vb.name = "Midas"
     vb.gui = false
-    vb.memory = "2048"
+    vb.memory = "4096"
     vb.cpus = 2
   end
 
